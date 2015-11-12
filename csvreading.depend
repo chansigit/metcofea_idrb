@@ -1,0 +1,98 @@
+# depslib dependency file v1.0
+1447262928 source:/home/chansigit/Code/cppcode/csvreading/main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<sstream>
+	<algorithm>
+	<string>
+	<vector>
+	<set>
+	"csvproc.h"
+	"compound.h"
+	"cpdcontainer.h"
+	"aligncompound.h"
+
+1447256061 /home/chansigit/Code/cppcode/csvreading/csvproc.h
+	<fstream>
+	<string>
+	<vector>
+	<cstring>
+
+1447259529 /home/chansigit/Code/cppcode/csvreading/compound.h
+	<string>
+	<cstdio>
+
+1447214783 /home/chansigit/Code/cppcode/csvreading/cpdcontainer.h
+	"compound.h"
+	<set>
+
+1447260473 /home/chansigit/Code/cppcode/csvreading/aligncompound.h
+	<vector>
+
+1447326531 source:e:\code\csvreading\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<sstream>
+	<algorithm>
+	<string>
+	<vector>
+	<set>
+	"csvproc.h"
+	"compound.h"
+	"cpdcontainer.h"
+	"aligncompound.h"
+
+1447256061 e:\code\csvreading\csvproc.h
+	<fstream>
+	<string>
+	<vector>
+	<cstring>
+
+1447263397 e:\code\csvreading\compound.h
+	<string>
+	<cstdio>
+
+1447302843 e:\code\csvreading\cpdcontainer.h
+	"compound.h"
+	<set>
+	<iostream>
+
+1447319684 e:\code\csvreading\aligncompound.h
+	<vector>
+	<string>
+
+1447326531 source:e:\code\csvreading1\main.cpp
+	<iostream>
+	<iomanip>
+	<fstream>
+	<sstream>
+	<algorithm>
+	<string>
+	<vector>
+	<set>
+	"csvproc.h"
+	"compound.h"
+	"cpdcontainer.h"
+	"aligncompound.h"
+
+1447256061 e:\code\csvreading1\csvproc.h
+	<fstream>
+	<string>
+	<vector>
+	<cstring>
+
+1447263397 e:\code\csvreading1\compound.h
+	<string>
+	<cstdio>
+
+1447302843 e:\code\csvreading1\cpdcontainer.h
+	"compound.h"
+	<set>
+	<iostream>
+
+1447319684 e:\code\csvreading1\aligncompound.h
+	<vector>
+	<string>
+
