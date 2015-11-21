@@ -11,7 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="50 50 0.8 G1.csv G2.csv G3.csv" />
+				<Option parameters="50 50 0.8 F17.csv F19.csv F90.csv" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
