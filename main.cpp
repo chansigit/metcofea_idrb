@@ -260,24 +260,46 @@ int main(int argc, char* argv[]){
     }
 
     // Context filling
+
     ofstream csvOut;
     csvOut.open("align_result.csv", ofstream::out);
     csvOut<<title<<endl;
     for (auto alignCpd:alignList){
         csvOut<<alignCpd.AlignID<<",";
+        //cout<<alignCpd.AlignID<<",";
         string datline="";
         for (auto pk: alignCpd.Peaks){
             size_t datBeginIdx=datBeginIndices[pk.dsID];
             size_t datEndIdx  =datEndIndices[pk.dsID];
             for (size_t col=0; col<=datEndIdx+2; ++col){ //copy all columns
-                datline+= dsGroups[pk.dsID].table(pk.cID+2, col) +",";
+                datline+= ("\""+dsGroups[pk.dsID].table(pk.cID+2, col)+"\"" +",");
             }
+            //cout<<datline<<endl;
+            //char a;cin>>a;
         }
         //datline.erase(datline.size()-1 ,1);
-
         csvOut<<datline<<endl;
+
     }
     csvOut.close();
 
+
+/*
+    //Context filling
+    ofstream csvOut;
+    csvOut.open("align_result.csv",ofstream::out);
+    csvOut<<title<<"\n";
+    for (auto alignCpd:alignList){
+        csvOut<< alignCpd.AlignID<<",";
+        for (auto pk:alignCpd.Peaks){
+            size_t datBeginIdx= datBeginIndices[pk.dsID];
+            size_t datEndIdx  = datEndIndices[pk.dsID];
+            for (size_t col=0; col<=datEndIdx+2; ++col)
+                csvOut<< "\""+dsGroups[pk.dsID].table(pk.cID+2, col)+"\"" <<",";
+        }
+        csvOut<<endl;
+    }
+    csvOut.close();
+*/
     return 0;
 }
