@@ -46,6 +46,8 @@ int main(int argc, char* argv[]){
     double AlignWindowPhase1;
     double AlignWindowPhase2;
     double MassTol;
+    std::string outputFilepath;
+
 
 	vector<CsvFile> dsGroups;
     vector<size_t> datBeginIndices;
@@ -57,12 +59,17 @@ int main(int argc, char* argv[]){
         cout<<"arg"<<i<<": "<<argv[i]<<endl;
     }
 #endif
-
-	/// Get parameters and filename from arguments
+    /// Get parameters and filename from arguments
+    ///argv[0]=integration exe filename:=csvint
+    ///argv[1]=awp1
+    ///argv[2]=awp2
+    ///argv[3]=mass tolerance
+    ///argv[4]=outputFilepath
 	if (argc>=4){
         AlignWindowPhase1=s2f(argv[1]);
         AlignWindowPhase2=s2f(argv[2]);
         MassTol          =s2f(argv[3]);
+        outputFilepath   =string(argv[4]);
 	}else{
         cerr<<"Data input error: parameter not specified!"<<endl;
         return DATA_INPUT_ERROR;
@@ -262,7 +269,8 @@ int main(int argc, char* argv[]){
     // Context filling
 
     ofstream csvOut;
-    csvOut.open("align_result.csv", ofstream::out);
+    csvOut.open(outputFilepath,ofstream::out);
+    //csvOut.open("align_result.csv", ofstream::out);
     csvOut<<title<<endl;
     for (auto alignCpd:alignList){
         csvOut<<alignCpd.AlignID<<",";
