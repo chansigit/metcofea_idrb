@@ -7,20 +7,21 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/csvreading" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/metcofea_integration" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="50 50 0.8 F17.csv F19.csv F90.csv" />
+				<Option parameters="10 10 0.05 /home/chansigit/alignresult.csv Good1.csv Good2.csv Good3.csv" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/csvreading" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/metcofea_integration" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="10 10 0.05 /tmp/alignresult.csv Good1.csv Good2.csv Good3.csv" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>

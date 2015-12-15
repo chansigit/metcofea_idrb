@@ -33,6 +33,20 @@ inline double s2f(string s){
 
 #define DATA_INPUT_ERROR 1
 
+
+
+
+
+///--------------------------------------------------------------
+///--------------------------------------------------------------
+///--------------------------------------------------------------
+
+///struck analysis
+int prev_stuck=0;
+int curr_stuck=0;
+int stuckivity=0;
+bool isStucked=false;
+
 int main(int argc, char* argv[]){
 	/*
     CsvFile c1("csvtest.csv");
@@ -65,7 +79,7 @@ int main(int argc, char* argv[]){
     ///argv[2]=awp2
     ///argv[3]=mass tolerance
     ///argv[4]=outputFilepath
-	if (argc>=4){
+	if (argc>=5){
         AlignWindowPhase1=s2f(argv[1]);
         AlignWindowPhase2=s2f(argv[2]);
         MassTol          =s2f(argv[3]);
@@ -74,7 +88,7 @@ int main(int argc, char* argv[]){
         cerr<<"Data input error: parameter not specified!"<<endl;
         return DATA_INPUT_ERROR;
 	}
-	for (int i=4;i<argc;++i){
+	for (int i=5;i<argc;++i){
 		CsvFile csv(argv[i]);
         dsGroups.push_back(csv);
 	}
@@ -137,7 +151,20 @@ int main(int argc, char* argv[]){
     int cyccnt = 0;
 #endif
 
-	while (!unalignList.empty()) {
+	while (!unalignList.empty() && !isStucked) {
+        ///stuck processing
+        curr_stuck=unalignList.size();
+        if (curr_stuck==prev_stuck){
+            stuckivity+=1;
+        }else{
+            stuckivity=0;
+        }
+        //cout<<"stat  "<<(!unalignList.empty() || !isStucked)<<endl;
+        prev_stuck=curr_stuck;
+        if (stuckivity==100){
+            isStucked=true;
+        }
+
 
 #ifdef _DEBUG
         cout << "Iteration times:" << cyccnt++ << "  unalignList.size" << unalignList.size() << endl;
@@ -148,14 +175,13 @@ int main(int argc, char* argv[]){
 		double AlignMoleMass = cpd.Mz;
 
 #ifdef _DEBUG
-        cout << "    primary reference compound:" << endl;
-        cout << "      "<< cpd.toString();
+        //cout << "    primary reference compound:" << endl;
+        //cout << "      "<< cpd.toString();
 #endif
 
 #ifdef _DEBUG
-        cout << "    mass seraching range:" << endl;
-        cout << "      [" << AlignMoleMass - MassTol << " , " << AlignMoleMass + MassTol << "]" << endl;
-
+        //cout << "    mass seraching range:" << endl;
+        //cout << "      [" << AlignMoleMass - MassTol << " , " << AlignMoleMass + MassTol << "]" << endl;
 #endif
 
 		vector<Compound> alignGroup;
@@ -163,17 +189,17 @@ int main(int argc, char* argv[]){
 		unalignList.mzSearch(AlignMoleMass - MassTol, AlignMoleMass + MassTol, itrBegin, itrEnd);//find Mass-Valid compounds
 
 #ifdef _DEBUG
-        if (itrBegin == unalignList.mzRank.end())
-            cout << "    itrBegin Not Found" << endl;
-        if (itrEnd == unalignList.mzRank.end())
-            cout << "    itrEnd Not Found" << endl;
+        //if (itrBegin == unalignList.mzRank.end())
+        //    cout << "    itrBegin Not Found" << endl;
+        //if (itrEnd == unalignList.mzRank.end())
+        //    cout << "    itrEnd Not Found" << endl;
 
-        cpd = *(itrBegin);
-        cout << "    range-left end:" << endl;
-        cout << "      " << cpd.toString() << endl;
-        cpd = *(itrEnd);
-        cout << "    range-right end:" << endl;
-        cout << "      " << cpd.toString() << endl;
+        //cpd = *(itrBegin);
+        //cout << "    range-left end:" << endl;
+        //cout << "      " << cpd.toString() << endl;
+        //cpd = *(itrEnd);
+        //cout << "    range-right end:" << endl;
+        //cout << "      " << cpd.toString() << endl;
 #endif
 
 		for (auto itr = itrBegin; itr != itrEnd; ++itr) {//find Rt-Valid compounds within Mass-Valid compounds
@@ -230,11 +256,14 @@ int main(int argc, char* argv[]){
 
 		alignGroup.clear();
 #ifdef _DEBUG
-        cout << "press any key to continue the iteration" << endl;
-        system("pause");
-        cout<<endl<<endl;
+        //cout << "press any key to continue the iteration" << endl;
+        //char b;
+        //cin>>b;
+        //system("pause");
+        //cout<<endl<<endl;
 #endif
 	}
+
 
 #ifdef _TEST
     ofstream fout;
@@ -268,10 +297,13 @@ int main(int argc, char* argv[]){
 
     // Context filling
 
+
+
     ofstream csvOut;
     csvOut.open(outputFilepath,ofstream::out);
     //csvOut.open("align_result.csv", ofstream::out);
     csvOut<<title<<endl;
+
     for (auto alignCpd:alignList){
         csvOut<<alignCpd.AlignID<<",";
         //cout<<alignCpd.AlignID<<",";
